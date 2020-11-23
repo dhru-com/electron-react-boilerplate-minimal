@@ -1,0 +1,106 @@
+{
+  "name": "electron-react-boilerplate-minimal",
+  "version": "0.1.0",
+  "private": false,
+  "author": "electron-react-boilerplate-minimal",
+  "scripts": {
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "build": "yarn react-build && cp ./electron/index.js ./build/electron.js",
+    "build-mac": "set env DEBUG=electron-builder && yarn build && electron-builder build --mac",
+    "build-linux": "set env DEBUG=electron-builder && yarn build && electron-builder build --linux",
+    "build-win": "set env DEBUG=electron-builder && yarn build && electron-builder build --win --x64",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "build": {
+    "productName": "electron-react-boilerplate-minimal",
+    "appId": "com.dhru.electron",
+    "mac": {
+      "artifactName": "${productName}-${version}-osx.${ext}",
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "files": [
+      "build/",
+      "electron/",
+      "node_modules/",
+      "package.json"
+    ]
+  },
+  "main": "./electron/index.js",
+  "homepage": "./",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "cross-env": "^7.0.2",
+    "electron-is-dev": "^1.2.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "electron": "^11.0.2",
+    "electron-builder": "^22.9.1",
+    "wait-on": "^5.2.0"
+  }
+}
